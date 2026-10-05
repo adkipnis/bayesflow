@@ -250,6 +250,16 @@ def test_unused_mask_raises(network_name, mask_type, request, random_samples, ra
         network.sample(batch_size, conditions=random_conditions, **{mask_type: mask})
 
 
+def test_scoring_rule_network_rejects_mask(typical_scoring_rule_network, random_samples, random_conditions):
+    """scoring rule networks are no `InferenceNetwork`, their subnet rejects the mask itself."""
+    conditions_shape = keras.ops.shape(random_conditions) if random_conditions is not None else None
+    typical_scoring_rule_network.build(keras.ops.shape(random_samples), conditions_shape)
+    mask = keras.ops.ones(keras.ops.shape(random_samples))
+
+    with pytest.raises(TypeError, match="'mask'"):
+        typical_scoring_rule_network.compute_metrics(random_samples, conditions=random_conditions, mask=mask)
+
+
 def test_accepted_attention_mask_does_not_raise(flow_matching_transformer, random_samples):
     """a mask the subnet accepts should pass through (e.g. `attention_mask` for diffusion transformers)."""
     flow_matching_transformer.build(keras.ops.shape(random_samples))
