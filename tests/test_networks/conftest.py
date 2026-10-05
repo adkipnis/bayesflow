@@ -92,7 +92,7 @@ def stable_consistency_model():
 
 
 @pytest.fixture()
-def affine_coupling_flow():
+def coupling_flow():
     from bayesflow.networks import CouplingFlow
 
     return CouplingFlow(
@@ -184,7 +184,7 @@ def latent_coupling_flow():
 @pytest.fixture(
     params=[
         "typical_scoring_rule_network",
-        "affine_coupling_flow",
+        "coupling_flow",
         "spline_coupling_flow",
         "flow_matching",
         "flow_matching_transformer",
@@ -204,7 +204,7 @@ def inference_network(request):
 
 @pytest.fixture(
     params=[
-        "affine_coupling_flow",
+        "coupling_flow",
         "spline_coupling_flow",
         "flow_matching",
         "flow_matching_transformer",
