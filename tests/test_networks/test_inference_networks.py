@@ -141,7 +141,7 @@ def test_cycle_consistency(generative_inference_network, random_samples, random_
 @pytest.mark.parametrize(
     "network_name",
     # one representative per density implementation
-    ["affine_coupling_flow", "spline_coupling_flow", "free_form_flow", "flow_matching", "diffusion_model"],
+    ["coupling_flow", "spline_coupling_flow", "free_form_flow", "flow_matching", "diffusion_model"],
 )
 @pytest.mark.skip_on_mps
 def test_density_numerically(network_name, request):
@@ -228,7 +228,7 @@ def test_compute_metrics(inference_network, random_samples, random_conditions):
 
 @pytest.mark.parametrize(
     "network_name",
-    ["affine_coupling_flow", "flow_matching", "consistency_model", "stable_consistency_model", "diffusion_model"],
+    ["coupling_flow", "flow_matching", "consistency_model", "stable_consistency_model", "diffusion_model"],
 )
 @pytest.mark.parametrize("mask_type", ["mask", "attention_mask"])
 def test_unused_mask_raises(network_name, mask_type, request, random_samples, random_conditions):
